@@ -7,23 +7,23 @@ AI-powered Chrome extension that helps users understand any website's privacy po
 <h3>🟢 Low Risk</h3>
 
 <p align="center">
-  <img src="screenshots/low-risk.png" width="260">
-  <img src="screenshots/low-details.png" width="260">
-  <img src="screenshots/low-risk-ds.png" width="260">
+  <img src="screenshots/low-risk-v2.png" width="260">
+  <img src="screenshots/low-details-v2.png" width="260">
+  <img src="screenshots/low-risk-ds-v2.png" width="260">
 </p>
 
 <h3>🟡 Medium Risk</h3>
 
 <p align="center">
-  <img src="screenshots/medium-risk.png" width="260">
-  <img src="screenshots/medium-details.png" width="260">
+  <img src="screenshots/medium-risk-v2.png" width="260">
+  <img src="screenshots/medium-details-v2.png" width="260">
 </p>
 
 <h3>🔴 High Risk</h3>
 
 <p align="center">
-  <img src="screenshots/high-risk.png" width="260">
-  <img src="screenshots/high-details.png" width="260">
+  <img src="screenshots/high-risk-v2.png" width="260">
+  <img src="screenshots/high-details-v2.png" width="260">
 </p>
 
 ---

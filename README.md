@@ -133,4 +133,4 @@ To reduce inference costs and improve response times, Anvesha hashes the cleaned
 
 ## Future Improvements
 
-- Faster processing for very large privacy policies
+- Faster processing for very large privacy policy

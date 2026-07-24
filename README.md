@@ -1,33 +1,45 @@
-# Anvesha
+# Anvesha - Privacy Policy Analyzer
 
 AI-powered Chrome extension that helps users understand any website's privacy policy in one click with concise summaries, risk scores, and key privacy insights.
 
 ## Demo
 
-| Analysis | Detailed Report |
-|----------|-----------------|
-| ![Home](screenshots/home.png) | ![Report](screenshots/report.png) |
+### Low Risk
+| Overview | Detailed Analysis |
+|----------|-------------------|
+| ![Low Risk](screenshots/low-risk.png) | ![Low Details](screenshots/low-details.png) | ![Data Sharing](screenshots/low-risk-ds.png) |
+
+### Medium Risk
+| Overview | Detailed Analysis |
+|----------|-------------------|
+| ![Medium Risk](screenshots/medium-risk.png) | ![Medium Details](screenshots/medium-details.png) |
+
+### High Risk
+| Overview | Detailed Analysis |
+|----------|-------------------|
+| ![High Risk](screenshots/high-risk.png) | ![High Details](screenshots/high-details.png) |
 
 ---
 
 ## Features
 
 - 🔍 Automatically locates a website's privacy policy
+- 📄 Extracts the main policy content using Mozilla Readability
 - 🤖 AI-powered privacy analysis
-- ⚠️ Privacy risk assessment
-- 📊 Easy-to-read summaries
-- 🔒 Highlights data collection, sharing, tracking, retention, and user rights
-- ⚡ Caches repeated analyses for faster responses
+- ⚠️ Privacy risk assessment (Low / Medium / High)
+- 📊 Structured summaries and key findings
+- 🔒 Highlights data collection, tracking, third parties, data sharing, retention, international transfers, and user rights
+- ⚡ Simple caching to reduce repeated AI requests
 
 ---
 
 ## How It Works
 
-1. User clicks **Analyze**.
+1. Click **Analyze** on any website.
 2. The extension locates the website's privacy policy.
 3. The policy is extracted and cleaned.
-4. The content is sent to an AI pipeline.
-5. The user receives a structured privacy report.
+4. The content is sent to the backend AI pipeline.
+5. A structured privacy report is returned to the extension.
 
 ---
 
@@ -37,51 +49,57 @@ Anvesha uses multiple strategies to reliably locate privacy policies across diff
 
 ### Strategy 1 — Current Page
 
-If the user is already on the privacy policy page, the extension extracts the article immediately.
+If the user is already viewing a privacy policy, the extension extracts it directly.
 
 ### Strategy 2 — Homepage Discovery
 
 If no privacy policy is found on the current page, the extension:
 
 - navigates to the website's homepage
-- searches for links such as *Privacy*, *Privacy Policy*, *Legal*, etc.
-- opens the discovered page
-- extracts the article
+- searches for links such as **Privacy**, **Privacy Policy**, **Legal**, **Terms**, etc.
+- opens the discovered privacy policy
+- extracts the main article
 
 ### Strategy 3 — SPA Support
 
 For Single Page Applications (React, Next.js, Vue, etc.), the extension waits for client-side rendering before extracting the content.
 
-Article extraction is powered by **Mozilla Readability**, which removes navigation menus, headers, footers, advertisements, and other non-essential elements.
+Content extraction is powered by **Mozilla Readability**, which removes navigation bars, sidebars, advertisements, headers, footers, and other non-essential elements.
 
 ---
 
 ## AI Pipeline
 
-The backend uses a two-stage AI pipeline powered by **DeepSeek V3 Flash**.
+Anvesha uses a two-stage AI pipeline powered by **DeepSeek V4 Flash**.
 
-### 1. Information Extraction
+### Stage 1 — Information Extraction
 
-The model extracts factual privacy information into a structured JSON format, including:
+The first model extracts factual information from the privacy policy into a structured JSON format, including:
 
-- Data collected
-- Data sharing
+- Collected data
 - Tracking technologies
 - Third-party services
+- Data sharing
 - User rights
 - Data retention
 - International transfers
 
-### 2. Risk Assessment
+### Stage 2 — Privacy Assessment
 
-A second AI pass evaluates the extracted information and generates:
+The extracted data is evaluated to generate:
 
-- Overall privacy risk
+- Privacy risk score
 - Executive summary
-- Key highlights
+- Key findings
 - User-friendly explanations
 
-This two-stage approach improves consistency by separating factual extraction from evaluation.
+Separating extraction from evaluation improves consistency and reduces hallucinations especially for cheaper models.
+
+---
+
+## Caching
+
+To reduce inference costs and improve response times, Anvesha hashes the cleaned privacy policy and caches completed analyses using **better-sqlite3**. If the same policy is analyzed again, the cached result is returned instantly without invoking the AI pipeline.
 
 ---
 
@@ -91,23 +109,21 @@ This two-stage approach improves consistency by separating factual extraction fr
 
 - React
 - Vite
+- Chrome Extension Manifest V3
 - Mozilla Readability
 
 ### Backend
 
 - Node.js
 - Express.js
-- better-sqlite3 (analysis cache)
+- better-sqlite3
 
 ### AI
 
-- DeepSeek V3 Flash
-
-
----
+- deepseek-v4-flash
 
 ---
 
 ## Future Improvements
 
-- Faster processing of large privacy policies
+- Faster processing for very large privacy policies
